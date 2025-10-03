@@ -67,6 +67,7 @@ def Translate(targetLanguage):
     }
     speech_config.speech_synthesis_voice_name = voices.get(targetLanguage)
     audio_config_out = speech_sdk.audio.AudioConfig(filename=output_file)
+    # audio_config_out = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config, audio_config_out)
     speak = speech_synthesizer.speak_text_async(translation).get()
     if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
