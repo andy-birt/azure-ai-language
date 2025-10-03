@@ -45,9 +45,12 @@ def Translate(targetLanguage):
     translation = ''
 
     # Translate speech
+    # Uses existing audio file
     current_dir = os.getcwd()
     audioFile = current_dir + '/station.wav'
     audio_config_in = speech_sdk.AudioConfig(filename=audioFile)
+    # Uncomment to use default mic
+    # audio_config_in = speech_sdk.AudioConfig(use_default_microphone=True)
     translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config_in)
     print("Getting speech from file...")
     result = translator.recognize_once_async().get()
@@ -68,6 +71,7 @@ def Translate(targetLanguage):
     speak = speech_synthesizer.speak_text_async(translation).get()
     if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(speak.reason)
+    # Comment the below if using mic
     else:
         print("Spoken output saved in " + output_file)
 
